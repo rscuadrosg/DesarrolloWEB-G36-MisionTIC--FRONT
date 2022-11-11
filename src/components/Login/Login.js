@@ -1,8 +1,16 @@
-import React from 'react'
+import React from 'react';
+
+// CONEXION CON EL BACK
+import axios from 'axios';
+import app from '../app.json';
+
+
 import { Container, Form, Button, Row, Col } from 'react-bootstrap';
 import './Login.css';
 import Encabezado from './Encabezado';
 
+// llamado al Json del servidor del back
+const {APIHOST}=app;
 
 
 class Login extends React.Component {
@@ -14,20 +22,36 @@ class Login extends React.Component {
 
     // Metodo iniciar Sesion
     iniciarSesion(){
-        alert(`Usuario: ${this.state.user} - Passsword: ${this.state.pass}`);
-    }
+        //Llamado a la URL de usuarios, (la que se probo con postman)
+        axios.post(`${APIHOST}/users/login`, {
+            user: this.state.user,
+            pass: this.state.pass,
+        })
+        .then((response) => {
+            console.log(response);
+        })
+        .catch((err) => {
+            console.log(err);
+        })
 
+        //alert(`Usuario: ${this.state.user} - Passsword: ${this.state.pass}`); 
+        //--- se hizo para validar en pruebas de navegador que tomara el estado del usuario autenticado
+    }
 
 
     render() {
         return (
-            <Container id="login-container" >
+            <Container id="login-container">
+
+                {/* ENCABEZADO con logo del proyecto*/}
                 <Row>
                     <Encabezado />
                     <h2>Iniciar Sesion</h2>
                 </Row>
+
+                {/* FORMULARIO */}
                 <Row>
-                    <Col 
+                    <Col
                         sm="12"
                         xs="12"
                         md={{ span: 4, offset: 4 }}

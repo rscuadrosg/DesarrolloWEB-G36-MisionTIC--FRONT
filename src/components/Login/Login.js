@@ -3,11 +3,15 @@ import React from 'react';
 // CONEXION CON EL BACK
 import axios from 'axios';
 import app from '../app.json';
-
-
 import { Container, Form, Button, Row, Col } from 'react-bootstrap';
 import './Login.css';
+import { isNull } from 'util';
+import Cookies from 'universal-cookie';
+import { calculaFinSesion } from '../helper/helper';
+import Loading from '../loading/loading';
 import Encabezado from './Encabezado';
+// Cookies
+const cookies = new Cookies();
 
 // llamado al Json del servidor del back
 const {APIHOST}=app;
@@ -16,6 +20,7 @@ const {APIHOST}=app;
 class Login extends React.Component {
     constructor(props) {
         super(props);
+        // this.state = { loading: true, user:'', pass:''}
         this.state = { user:'', pass:''}
     }
     state = {}
@@ -23,12 +28,20 @@ class Login extends React.Component {
     // Metodo iniciar Sesion
     iniciarSesion(){
         //Llamado a la URL de usuarios, (la que se probo con postman)
-        axios.post(`${APIHOST}/users/login`, {
+        axios
+        .post(`${APIHOST}/users/login`, {
             user: this.state.user,
             pass: this.state.pass,
         })
         .then((response) => {
-            console.log(response);
+            if (isNull(response.data.token)) {
+                alert('usuario y/o contraseña invalid@s')
+            } else {
+                cookies.set('_s', response.data.token, {
+                    path: '/',
+                    expires: calculaFinSesion(),
+                })
+            }
         })
         .catch((err) => {
             console.log(err);
@@ -42,6 +55,10 @@ class Login extends React.Component {
     render() {
         return (
             <Container id="login-container">
+
+                {/* Animacion del loading */}
+                <Loading />
+                {/* <Loading show={this.state.loading} /> */}
 
                 {/* ENCABEZADO con logo del proyecto*/}
                 <Row>

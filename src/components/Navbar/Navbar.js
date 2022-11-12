@@ -7,10 +7,9 @@ import './Navbar.css';
 class NavbarMenu extends React.Component {
     constructor(props) {
         super(props);
+        this.state = { }
     }
-    state = {}
-
-
+    
     render() {
         return (
             <Navbar id="navbar-menu" fixed="top" bg="dark" variant="dark" expand="lg">

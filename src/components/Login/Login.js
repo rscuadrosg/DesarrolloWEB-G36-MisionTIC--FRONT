@@ -20,13 +20,16 @@ const {APIHOST}=app;
 class Login extends React.Component {
     constructor(props) {
         super(props);
-        // this.state = { loading: true, user:'', pass:''}
-        this.state = { user:'', pass:''}
+        this.state = { loading: false, user:'', pass:''}
+        //this.state = { user:'', pass:''}
     }
     state = {}
 
     // Metodo iniciar Sesion
     iniciarSesion(){
+        //llamar a loading
+        this.setState({ loading: true });
+
         //Llamado a la URL de usuarios, (la que se probo con postman)
         axios
         .post(`${APIHOST}/users/login`, {
@@ -41,10 +44,15 @@ class Login extends React.Component {
                     path: '/',
                     expires: calculaFinSesion(),
                 })
+                this.props.history.push(window.open('/empleados', '_self'));
             }
+            //ocultar animacion loading
+            this.setState({ loading: false })
         })
         .catch((err) => {
             console.log(err);
+            //ocultar animacion loading
+            this.setState({ loading: false })
         })
 
         //alert(`Usuario: ${this.state.user} - Passsword: ${this.state.pass}`); 
@@ -57,8 +65,7 @@ class Login extends React.Component {
             <Container id="login-container">
 
                 {/* Animacion del loading */}
-                <Loading />
-                {/* <Loading show={this.state.loading} /> */}
+                <Loading show={this.state.loading} />
 
                 {/* ENCABEZADO con logo del proyecto*/}
                 <Row>

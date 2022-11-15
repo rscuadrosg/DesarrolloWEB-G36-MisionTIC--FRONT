@@ -2,6 +2,8 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Login from "../Login/Login";
 import Inicio from "../Index";
+import Privaterouter from "../auth/privaterouter";
+import Empleados from "../Empleados/Empleados.buscar";
 
 function AppRoutes(){
     
@@ -9,6 +11,7 @@ function AppRoutes(){
         <Router>
             <Switch>
                 <Route exact path={ [ "/login" ] } component={ Login }></Route>
+                <Privaterouter exact path={ [ "/empleados" ] } component={ Empleados } />
                 <Route exact path={ [ "/" ] } component={ Inicio }></Route>
                 <Route exact path={ [ "/index" ] } component={ Inicio }></Route>
                 <Route path={ "*" } component={ () =>

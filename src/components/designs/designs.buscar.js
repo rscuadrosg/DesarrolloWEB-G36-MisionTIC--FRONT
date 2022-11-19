@@ -2,34 +2,24 @@ import React from 'react';
 import { Container, Row } from 'react-bootstrap';
 import DataGrid from '../grid/grid';
 import { request } from '../helper/helper';
-import './Empleados.css';
+import './designs.css';
 
-//EJEMPLOMDE LA PROFE EMILY
+// CAMPOS DEL PROYECTO PARA LOS DISEÑOS
 const columns = [{
-    dataField: "_id",
+    dataField: "design_id",
     text: "ID",
-    hidden: "true",
 }, {
     dataField: 'nombre',
-    text: 'Nombre'
+    text: 'Nombre Diseño'
 }, {
-    dataField: 'apellido_p',
-    text: 'Primer Apellido'
+    dataField: 'descripcion',
+    text: 'Descripcion'
 }, {
-    dataField: 'apellido_m',
-    text: 'Segundo Apellido'
-}, {
-    dataField: 'telefono',
-    text: 'Telefono'
-}, {
-    dataField: 'mail',
-    text: 'Email',
-}, {
-    dataField: 'direccion',
-    text: 'direccion'
+    dataField: 'urlimg',
+    text: 'Url de la Imagen'
 }];
 
-export default class EmpleadosBuscar extends React.Component {
+export default class DesignsBuscar extends React.Component {
     constructor(props) {
         super(props);
         this.state = {};
@@ -48,19 +38,17 @@ export default class EmpleadosBuscar extends React.Component {
 
     render() {
         return (
-            <Container id='empleados-buscar-container'>
+            <Container id='designs-buscar-container'>
                 <Row>
-                    <h1>BUSCAR EMPLEADOS</h1>
+                    <h1>BUSCAR DISEÑOS</h1>
                 </Row>
                 <Row>
-                    {/* EJEMPLO DE LA PROFE EMILY (EMPLEADOS) */}
-                    <DataGrid url="/empleados" columns={ columns } ></DataGrid>
-
                     {/* DATOS DE NUESTRO PROYECTO*/}
-                    {/* <DataGrid url="/empleados" columns={ columns } ></DataGrid>*/}
+                    <DataGrid url="/designs" columns={ columns } ></DataGrid>
                 </Row>
             </Container>
         );
     }
 }
+ 
 

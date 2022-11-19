@@ -1,6 +1,10 @@
 import { isUndefined } from "util";
 import axios from "axios";
 import Cookies from 'universal-cookie';
+import app from '../app.json';
+
+// llamado al Json del servidor del back
+const {APIHOST}=app;
 
 const cookies = new Cookies();
 
@@ -21,11 +25,13 @@ function renovarSesion() {
         path: '/',
         expires: calculaFinSesion(),
     });
+    return sesion;
 }
 
 export const request = {
-    get: function (url) {
-        renovarSesion();
-        return axios.get(url);
+    get: function (services) {
+        let token = renovarSesion();
+        return axios.get(`${APIHOST}${services}`, { headers: { Authorization: `Bearer ${token}`, },
+        });
     },
 };

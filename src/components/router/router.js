@@ -4,6 +4,7 @@ import Login from "../Login/Login";
 import Inicio from "../Index";
 import Privaterouter from "../auth/privaterouter";
 import Empleados from "../Empleados/Empleados.buscar";
+import Designs from "../designs/designs.buscar";
 
 function AppRoutes(){
     
@@ -12,6 +13,7 @@ function AppRoutes(){
             <Switch>
                 <Route exact path={ [ "/login" ] } component={ Login }></Route>
                 <Privaterouter exact path={ [ "/empleados" ] } component={ Empleados } />
+                <Privaterouter exact path={ [ "/designs" ] } component={ Designs } />
                 <Route exact path={ [ "/" ] } component={ Inicio }></Route>
                 <Route exact path={ [ "/index" ] } component={ Inicio }></Route>
                 <Route path={ "*" } component={ () =>

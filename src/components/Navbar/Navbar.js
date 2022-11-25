@@ -2,12 +2,20 @@ import React from 'react';
 import { Container, Nav, Navbar, DropdownButton, Dropdown, Row } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import Cookies from 'universal-cookie';
 import './Navbar.css';
 
-class NavbarMenu extends React.Component {
+const cookies = new Cookies();
+
+export default class NavbarMenu extends React.Component {
     constructor(props) {
         super(props);
         this.state = { }
+    }
+
+    logout() {
+        cookies.remove('_s');
+        window.location.reload();
     }
     
     render() {
@@ -31,7 +39,7 @@ class NavbarMenu extends React.Component {
                                     </Row>
                                 </Dropdown.Header>
                                 <Dropdown.Divider></Dropdown.Divider>
-                                <Dropdown.Item href="#/action-1">
+                                <Dropdown.Item onClick={() => this.logout() } >
                                     Cerrar Sesion
                                 </Dropdown.Item>
                                 {/* <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
@@ -43,5 +51,3 @@ class NavbarMenu extends React.Component {
         );
     }
 }
-
-export default NavbarMenu;
